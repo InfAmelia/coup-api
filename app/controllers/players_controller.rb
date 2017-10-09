@@ -2,7 +2,7 @@ class PlayersController < ApplicationController
   before_action :set_player, only: [:show, :update, :destroy]
 
   def index
-    @players = Player.order(:wins, :desc).limit(15)
+    @players = Player.order(wins: :desc).limit(15)
     json_response(@players)
   end
 
