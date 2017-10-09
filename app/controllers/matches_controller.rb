@@ -8,6 +8,7 @@ class MatchesController < ApplicationController
 
   def create
     @match = Match.create!(match_params)
+    update_or_create_user(match_params[:winner], match_params[:challenge_id])
     json_response(@match)
   end
 
@@ -35,5 +36,9 @@ class MatchesController < ApplicationController
   def match_params
     # whitelist params
     params.permit(:winner, :challenge_id)
+  end
+
+  def update_or_create_user(name, challenge)
+    Player.find_or_create_and_increment(name)
   end
 end
