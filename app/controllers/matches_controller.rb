@@ -8,7 +8,7 @@ class MatchesController < ApplicationController
       { created_at: pruned_created_at(match), winner: match.winner}
     end
 
-    json_response(matches_hash)
+    json_response(@matches)
   end
 
   def create
