@@ -2,7 +2,7 @@ class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :update, :destroy]
 
   def index
-    @matches = Match.order('created_at desc')
+    @matches = Match.all
 
     matches_hash = @matches.map do |match|
       { created_at: pruned_created_at(match), winner: match.winner}
