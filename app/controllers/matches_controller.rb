@@ -2,8 +2,13 @@ class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :update, :destroy]
 
   def index
-    @matches = Match.all
-    json_response(@matches)
+    @matches = Match.last(15)
+
+    matches_hash = @matches.map do |match|
+      { created_at: pruned_created_at(@match), winner: @match.winner}
+    end
+    
+    json_response(matches_hash)
   end
 
   def create
@@ -13,10 +18,7 @@ class MatchesController < ApplicationController
   end
 
   def show
-    created_at = @match.created_at
-      .in_time_zone("Pacific Time (US & Canada)")
-      .strftime("%d-%m-%y %r")
-
+    created_at = pruned_created_at(@match)
     json_response({ created_at: created_at, winner: @match.winner })
   end
 
@@ -44,5 +46,11 @@ class MatchesController < ApplicationController
 
   def update_or_create_user(name, challenge)
     Player.find_or_create_and_increment(name)
+  end
+
+  def pruned_created_at(match)
+    @match.created_at
+      .in_time_zone("Pacific Time (US & Canada)")
+      .strftime("%d-%m-%y %r")
   end
 end
