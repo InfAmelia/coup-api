@@ -5,10 +5,10 @@ class MatchesController < ApplicationController
     @matches = Match.all
 
     matches_hash = @matches.map do |match|
-      { created_at: pruned_created_at(match), winner: match.winner}
+      { created_at: pruned_created_at(match), winner: match.winner, id: match.id }
     end
 
-    json_response(@matches)
+    json_response(matches_hash)
   end
 
   def create
