@@ -50,6 +50,6 @@ class MatchesController < ApplicationController
   def pruned_created_at(match)
     match.created_at
       .in_time_zone("Pacific Time (US & Canada)")
-      .strftime("%d-%m-%y %r")
+      .strftime("%d-%m-%y")
   end
 end
