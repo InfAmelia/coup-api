@@ -13,7 +13,11 @@ class MatchesController < ApplicationController
   end
 
   def show
-    json_response(@match)
+    created_at = @match.created_at
+      .in_time_zone("Pacific Time (US & Canada)")
+      .strftime("%d-%m-%y %r")
+
+    json_response({ created_at: created_at, winner: @match.winner })
   end
 
   def update
