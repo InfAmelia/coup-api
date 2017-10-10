@@ -5,9 +5,9 @@ class MatchesController < ApplicationController
     @matches = Match.last(15)
 
     matches_hash = @matches.map do |match|
-      { created_at: pruned_created_at(@match), winner: @match.winner}
+      { created_at: pruned_created_at(match), winner: match.winner}
     end
-    
+
     json_response(matches_hash)
   end
 
@@ -18,8 +18,7 @@ class MatchesController < ApplicationController
   end
 
   def show
-    created_at = pruned_created_at(@match)
-    json_response({ created_at: created_at, winner: @match.winner })
+    json_response({ created_at: pruned_created_at(@match), winner: @match.winner })
   end
 
   def update
@@ -49,7 +48,7 @@ class MatchesController < ApplicationController
   end
 
   def pruned_created_at(match)
-    @match.created_at
+    match.created_at
       .in_time_zone("Pacific Time (US & Canada)")
       .strftime("%d-%m-%y %r")
   end
