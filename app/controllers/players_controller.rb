@@ -3,16 +3,16 @@ class PlayersController < ApplicationController
 
   def index
     @players = Player.order(wins: :desc).limit(15)
-    json_response(@players)
+    json_response(extract_response_attributes(@players))
   end
 
   def create
     @player = Player.create!(player_params)
-    json_response(@player)
+    json_response(extract_response_attributes([@player]))
   end
 
   def show
-    json_response(@player)
+    json_response(extract_response_attributes([@player]))
   end
 
   def update
@@ -34,5 +34,11 @@ class PlayersController < ApplicationController
   def player_params
     # whitelist params
     params.permit(:name)
+  end
+
+  def extract_response_attributes(players)
+    players.map do |player|
+      { name: player.name, wins: player.wins, challenge_ids: player.challenges_met.pluck(:id) }
+    end
   end
 end
