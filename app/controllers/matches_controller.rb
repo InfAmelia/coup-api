@@ -18,6 +18,8 @@ class MatchesController < ApplicationController
       @match.award_challenge_met(match_params[:challenge_id])
     end
 
+    @match.update_player_wins
+
     json_response(@match)
   end
 
