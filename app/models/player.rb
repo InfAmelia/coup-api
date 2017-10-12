@@ -18,4 +18,8 @@ class Player < ApplicationRecord
     challenge = challenges.build(name: challenge_id)
     challenge.save!
   end
+
+  def matches_won
+    Match.where(winner: self.name)
+  end
 end
