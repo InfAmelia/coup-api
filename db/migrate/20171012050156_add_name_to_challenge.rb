@@ -1,5 +1,5 @@
 class AddNameToChallenge < ActiveRecord::Migration[5.1]
   def change
-    add_column :challenges, :description, :string
+    add_column :name, :description, :string
   end
 end
