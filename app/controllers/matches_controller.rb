@@ -17,7 +17,7 @@ class MatchesController < ApplicationController
     if match_params[:challenge_id]
       @match.award_challenge_met(match_params[:challenge_id])
     end
-    
+
     json_response(@match)
   end
 
@@ -48,7 +48,7 @@ class MatchesController < ApplicationController
   end
 
   def update_or_create_user(name, challenge)
-    Player.find_or_create_user(name)
+    Player.find_or_create(name)
   end
 
   def pruned_created_at(match)
