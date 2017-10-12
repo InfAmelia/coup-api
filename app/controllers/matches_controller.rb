@@ -12,7 +12,7 @@ class MatchesController < ApplicationController
   end
 
   def create
-    @match = Match.create!(winner: Player.find_or_create(match_params[:winner]))
+    @match = Match.create!(winner: match_params[:winner])
 
     if match_params[:challenge_id]
       @match.award_challenge_met(match_params[:challenge_id])
