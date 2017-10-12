@@ -10,14 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009004935) do
+ActiveRecord::Schema.define(version: 20171012013836) do
 
-  create_table "challenges", force: :cascade do |t|
+  create_table "challenge_mets", force: :cascade do |t|
     t.integer "player_id"
+    t.integer "challenge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_challenge_mets_on_challenge_id"
+    t.index ["player_id"], name: "index_challenge_mets_on_player_id"
+  end
+
+  create_table "challenges", force: :cascade do |t|
     t.string "name"
-    t.index ["player_id"], name: "index_challenges_on_player_id"
+    t.string "hint"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "matches", force: :cascade do |t|
@@ -31,6 +39,8 @@ ActiveRecord::Schema.define(version: 20171009004935) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "matches_id"
+    t.index ["matches_id"], name: "index_players_on_matches_id"
   end
 
 end

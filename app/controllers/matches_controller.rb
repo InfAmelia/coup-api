@@ -12,8 +12,12 @@ class MatchesController < ApplicationController
   end
 
   def create
-    @match = Match.create!(match_params)
-    update_or_create_user(match_params[:winner], match_params[:challenge_id])
+    @match = Match.create!(winner: update_or_create_user(match_params[:winner]))
+
+    if match_params[:challenge_id]
+      @match.award_challenge_met(match_params[:challenge_id])
+    end
+    
     json_response(@match)
   end
 
@@ -21,10 +25,10 @@ class MatchesController < ApplicationController
     json_response({ created_at: pruned_created_at(@match), winner: @match.winner })
   end
 
-  def update
-    @match.update(match_params)
-    head :no_content
-  end
+  # def update
+  #   @match.update(match_params)
+  #   head :no_content
+  # end
 
   def destroy
     @match.destroy
@@ -44,7 +48,7 @@ class MatchesController < ApplicationController
   end
 
   def update_or_create_user(name, challenge)
-    Player.find_or_create_and_increment(name)
+    Player.find_or_create_user(name)
   end
 
   def pruned_created_at(match)
