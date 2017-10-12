@@ -12,7 +12,7 @@ class MatchesController < ApplicationController
   end
 
   def create
-    @match = Match.create!(winner: update_or_create_user(match_params[:winner]))
+    @match = Match.create!(winner: Player.find_or_create(match_params[:winner]))
 
     if match_params[:challenge_id]
       @match.award_challenge_met(match_params[:challenge_id])
@@ -45,10 +45,6 @@ class MatchesController < ApplicationController
   def match_params
     # whitelist params
     params.permit(:winner, :challenge_id)
-  end
-
-  def update_or_create_user(name, challenge)
-    Player.find_or_create(name)
   end
 
   def pruned_created_at(match)
