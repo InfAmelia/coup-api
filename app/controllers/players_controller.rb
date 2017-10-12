@@ -3,7 +3,7 @@ class PlayersController < ApplicationController
 
   def index
     @players = Player.order(wins: :desc).limit(15)
-    json_response(extract_response_attributes(@players))
+    json_response(@players)
   end
 
   def create
