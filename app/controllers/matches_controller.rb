@@ -1,5 +1,5 @@
 class MatchesController < ApplicationController
-  before_action :set_match, only: [:show, :update, :destroy]
+  before_action :set_match, only: [:show, :update]
 
   def index
     @matches = Match.order("created_at desc")
@@ -31,11 +31,6 @@ class MatchesController < ApplicationController
   #   @match.update(match_params)
   #   head :no_content
   # end
-
-  def destroy
-    @match.destroy
-    head :no_content
-  end
 
   private
 
