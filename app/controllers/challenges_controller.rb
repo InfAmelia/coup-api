@@ -2,7 +2,7 @@ class ChallengesController < ApplicationController
   before_action :set_challenge, only: [:show, :update]
 
   def index
-    @challenges = Challenge.order("created_at desc")
+    @challenges = Challenge.all
 
     # matches_hash = @challenges.map do |challenge|
     #   { created_at: pruned_created_at(match), winner: match.winner, id: match.id }
