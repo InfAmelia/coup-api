@@ -38,7 +38,7 @@ class PlayersController < ApplicationController
 
   def extract_response_attributes(players)
     players.map do |player|
-      { name: player.name, wins: player.wins, challenge_ids: player.challenges_met.pluck(:challenge_id) }
+      { name: player.name, wins: player.wins, challenge_ids: player.challenges_met.pluck(:challenge_id).sort }
     end
   end
 end
